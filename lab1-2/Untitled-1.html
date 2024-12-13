@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
+    <style>
+        body {
+            font-family:fantasy;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            background-image: url("https://rog.asus.com/media/1620942307557.jpg");
+        }
+        .calculator {
+            background-color: #ffffff59;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .display {
+            background-color: #5ab9aa;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: right;
+            font-size: 24px;
+            height: 40px; 
+            overflow: auto;
+            margin-bottom: -5px;
+        }
+        .display_culc {
+            background-color: #5ab9aa;
+            padding: 5px;
+            text-align: right;
+            font-size: 16px;
+            margin-bottom: 10px;
+            height: 20px; 
+            overflow: auto;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+        .button {
+            background-color: #046b5db4;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family:fantasy;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #271f55d2;
+        }
+        .operator {
+            background-color: #95ddb3;
+        }
+        .display{
+            color: rgb(0, 0, 0);
+        }
+        .dark-theme {
+        background-color: #222; 
+        color: #eee; 
+        }
+        .dark-theme .calculator {
+        background-color: #752a709a;
+        }
+        .dark-theme .display {
+        background-color: #2d194d;
+        color: #f77f7f;
+        }
+        .dark-theme .button {
+        background-color: #21053a;
+        color: #f77f7f;
+        }
+        .dark-theme .button:hover {
+        background-color: #402c68;
+        } 
+        .dark-theme .operator{
+            background-color: #54386d;
+        }
+        .inf {
+            display: none; 
+            position: fixed;
+            top: 46%;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(255, 251, 0, 0.2);
+            z-index: 100; 
+        }
+
+        .inf-content {
+            text-align: center;
+            font-family:cursive;
+            color: #000000;
+        }
+
+        .close-inf {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <div class="display" id="display"></div>
+        <div class="display_culc" id="display_culc"></div>
+        <div class="buttons">
+            <button class="button" onclick="appendNumber('7')" >7</button>
+            <button class="button" onclick="appendNumber('8')" >8</button>
+            <button class="button" onclick="appendNumber('9')" >9</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+            <button class="button" onclick="appendNumber('4')" >4</button>
+            <button class="button" onclick="appendNumber('5')" >5</button>
+            <button class="button" onclick="appendNumber('6')" >6</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button" onclick="appendNumber('1')" >1</button>
+            <button class="button" onclick="appendNumber('2')" >2</button>
+            <button class="button" onclick="appendNumber('3')" >3</button>
+            <button class="button operator" onclick="appendOperator('*')">*</button>
+            <button class="button" onclick="appendNumber('0')" >0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+            <button class="button" onclick="calculate()">=</button>
+            <button class="button operator" onclick="appendOperator('/')">/</button>
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="window.location.href='https://github.com/4GTTN'">git</button>
+            <button class="button" id="toggleTheme">theme</button>
+            <button class="button" onclick="openinf()">inf</button>
+        </div>
+    </div>
+    <div class="inf" id="inf">
+        <span class="close-inf" onclick="closeinf()">&times;</span>
+        <div class="inf-content">
+          <h2>Информация о студенте</h2>
+          <p>Александров Михаил Максимович</p>
+          <p>Группа ИС-22</p>
+          <p>Кафедра ИСиТ</p>
+        </div>
+      </div>
+    <script>
+        let display = document.getElementById('display');
+        let display_culc = document.getElementById('display_culc'); 
+        const toggleTheme = document.getElementById('toggleTheme');
+        let isDarkTheme = false;
+        let currentInput = '';
+        function appendNumber(num) {
+            currentInput += num;
+            display.textContent = currentInput;
+            try{
+                currentInput = eval(currentInput);
+                display_culc.textContent = currentInput;
+            } catch(error){
+                display_culc.textContent = 'Error';
+            }
+        }
+        function appendOperator(operator) {
+            currentInput += operator;
+            display.textContent = currentInput;
+        }
+        function calculate() {
+            try {
+                currentInput = eval(currentInput);
+                display.textContent += " =  "
+                display.textContent += currentInput ;
+            } catch (error) {
+                display.textContent = 'Error';
+            }
+        }
+        function clearDisplay() {
+            currentInput = '';
+            display.textContent = '';
+        }
+        toggleTheme.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            isDarkTheme = !isDarkTheme;
+        });
+        function openinf() {
+            document.getElementById('inf').style.display = 'block';
+        }
+        function closeinf() {
+            document.getElementById('inf').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

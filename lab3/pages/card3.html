@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="mt-56 h-4/5">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="grid grid-cols-1 md:grid-cols-2 w-5/12 m-auto rounded-lg border border-black text-bg-success">
+        <div class="flex justify-center items-start">
+            <img src="../pictures/osobennosti-belyh-vislouhih-shotlandskih-koshek.jpg" 
+            class="w-45 top-6 translate-y-2 rounded-2xl" alt="картинка">
+        </div>
+        <div class="p-4">
+            <h5 class="text-lg font-bold">Шатланская кошка</h5>
+            <p class="text-balance">
+            Шотландская прямоухая кошка или скоттиш-страйт — сравнительно молодая, но очень
+            популярная во всем мире порода. Очаровательная внешность в сочетании с дружелюбным
+            характером делает их желанными питомцами для многих любителей домашних кошек.
+            </p>
+        </div>
+        <button id="card-1" class="btn btn-warning block w-100 h-10 mt-2" onclick="backWindow()">Вернуться назад</button>
+        <script>
+            function backWindow() {
+                window.location.replace("../index.html")
+            }
+        </script>
+    </div>
+</body>
+</html>

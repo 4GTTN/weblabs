@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="mt-56">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="grid grid-cols-1 md:grid-cols-2 w-5/12 m-auto rounded-lg border border-black text-bg-success">
+        <div class="flex justify-center items-start">
+            <img src="../pictures/ce334b56019748c5c1f2b7ded2594cb0.jpg" 
+            class="w-45 top-2 translate-y-2 rounded-2xl" alt="картинка">
+        </div>
+        <div class="p-4">
+            <h5 class="text-lg font-bold">Сиамская кошка </h5>
+            <p class="text-balance">
+            Сиамская кошка — особа королевских кровей, грациозное создание 
+            с узнаваемым окрасом и пронзительными голубыми глазами
+            Сиамская порода — одна из самых популярных в мире, 
+            и раньше содержание этих питомцев считалось особой привилегией.
+                   </p>
+        </div>
+        <button id="card-1" class="btn btn-warning block w-100 h-10 mt-2" onclick="backWindow()">Вернуться назад</button>
+        <script>
+            function backWindow() {
+                window.location.replace("../index.html")
+            }
+        </script>
+    </div>
+</body>
+</html>
