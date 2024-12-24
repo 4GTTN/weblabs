@@ -22,7 +22,7 @@ export class MainPage{
  
     renderItem = async()=>{
         const page = this.pageRoot
-        const items = await this.getData();
+        var items = await this.getData();
         document.getElementById("up").onclick = function(){
             
             document.getElementById("root").innerHTML = ''
