@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "src": "https://santreyd.ru/upload/iblock/bea/bea01b9b27c6fc07b6b6b3170b86bddd.jpg",
+    "title": "Мейн - кун",
+    "text": "Мейн-кун — порода кошек. Вес даной пароды достигает от 8 до 12 кг."
+  },
+  {
+    "id": 2,
+    "src": "https://avatars.mds.yandex.net/i?id=a12ece5dd067a8be6d17430f4066a89a656c83c0-12623317-images-thumbs&n=13",
+    "title": "Сиамская кошка",
+    "text": "Сиамская кошка — порода кошек. Вес даной пароды достигает от 5 до 8 кг."
+  },
+  {
+    "id": 3,
+    "src": "https://vplate.ru/images/article/orig/2019/04/osobennosti-belyh-vislouhih-shotlandskih-koshek.jpg",
+    "title": "Шатланская кошка",
+    "text": "Шатланская кошка — порода кошек.  Вес даной пароды достигает от 3 до 6 кг."
+  }
+]
