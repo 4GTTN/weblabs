@@ -116,19 +116,19 @@
         <div class="display" id="display"></div>
         <div class="display_culc" id="display_culc"></div>
         <div class="buttons">
-            <button class="button" onclick="appendNumber('7')" >7</button>
-            <button class="button" onclick="appendNumber('8')" >8</button>
-            <button class="button" onclick="appendNumber('9')" >9</button>
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
             <button class="button operator" onclick="appendOperator('+')">+</button>
-            <button class="button" onclick="appendNumber('4')" >4</button>
-            <button class="button" onclick="appendNumber('5')" >5</button>
-            <button class="button" onclick="appendNumber('6')" >6</button>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
             <button class="button operator" onclick="appendOperator('-')">-</button>
-            <button class="button" onclick="appendNumber('1')" >1</button>
-            <button class="button" onclick="appendNumber('2')" >2</button>
-            <button class="button" onclick="appendNumber('3')" >3</button>
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
             <button class="button operator" onclick="appendOperator('*')">*</button>
-            <button class="button" onclick="appendNumber('0')" >0</button>
+            <button class="button" onclick="appendNumber('0')">0</button>
             <button class="button" onclick="appendNumber('.')">.</button>
             <button class="button" onclick="calculate()">=</button>
             <button class="button operator" onclick="appendOperator('/')">/</button>
@@ -143,6 +143,7 @@
             <button class="button" onclick="window.location.href='https://github.com/4GTTN'">git</button>
             <button class="button" id="toggleTheme">theme</button>
             <button class="button" onclick="openinf()">inf</button>
+            <button class="button" id="changeColor">Сменить цвет</button>
         </div>
     </div>
     <div class="inf" id="inf">
@@ -158,9 +159,10 @@
         let display = document.getElementById('display');
         let display_culc = document.getElementById('display_culc'); 
         const toggleTheme = document.getElementById('toggleTheme');
+        const changeColorButton = document.getElementById('changeColor');
         let isDarkTheme = false;
         let currentInput = '';
-        let percentageBase = null; // Новая переменная для хранения базового значения для процентов
+        let percentageBase = null;
 
         function appendNumber(num) {
             currentInput += num;
@@ -170,14 +172,13 @@
         function appendOperator(operator) {
             currentInput += operator;
             display.textContent = currentInput;
-            percentageBase = null; // Сбрасываем базу для процентов при вводе оператора
+            percentageBase = null; 
         }
 
         function calculate() {
             if (percentageBase !== null) {
                 let percentValue = parseFloat(currentInput);
                 if (!isNaN(percentValue)) {
-                    // Вычисляем процент от сохраненного базового значения
                     currentInput = (percentageBase * percentValue / 100).toString();
                 }
             } else {
@@ -188,13 +189,13 @@
                     return;
                 }
             }
-            display.textContent = currentInput; // Отображаем результат
-            display_culc.textContent = currentInput; // Сохраняем результат
+            display.textContent = currentInput; 
+            display_culc.textContent = currentInput; 
         }
 
         function setPercentageMode() {
-            percentageBase = parseFloat(currentInput); // Сохраняем текущее значение как базу
-            currentInput = ''; // Очищаем текущий ввод для следующего числа
+            percentageBase = parseFloat(currentInput);
+            currentInput = ''; 
         }
 
         function changeSign() {
@@ -243,7 +244,7 @@
 
         function clearDisplay() {
             currentInput = '';
-            percentageBase = null; // Сбрасываем базу для процентов
+            percentageBase = null; 
             display.textContent = '';
             display_culc.textContent = '';
         }
@@ -251,6 +252,12 @@
         toggleTheme.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
             isDarkTheme = !isDarkTheme;
+        });
+
+        changeColorButton.addEventListener('click', () => {
+            const colors = ['#5ab9aa', '#ffcc00', '#ff5733', '#33ff57', '#3357ff', '#ff33ab']; // Массив цветов
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            display.style.backgroundColor = randomColor; // Меняем цвет фона вывода
         });
 
         function openinf() {
