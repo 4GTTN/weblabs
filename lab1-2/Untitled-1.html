@@ -6,8 +6,8 @@
     <title>Калькулятор</title>
     <style>
         body {
-            font-family:fantasy;
-            display:flex;
+            font-family: fantasy;
+            display: flex;
             justify-content: center;
             align-items: center;
             min-height: 90vh;
@@ -49,7 +49,7 @@
             padding: 15px;
             border-radius: 5px;
             cursor: pointer;
-            font-family:fantasy;
+            font-family: fantasy;
             font-size: 18px;
             transition: background-color 0.3s;
         }
@@ -59,28 +59,28 @@
         .operator {
             background-color: #95ddb3;
         }
-        .display{
+        .display {
             color: rgb(0, 0, 0);
         }
         .dark-theme {
-        background-color: #222; 
-        color: #eee; 
+            background-color: #222; 
+            color: #eee; 
         }
         .dark-theme .calculator {
-        background-color: #752a709a;
+            background-color: #752a709a;
         }
         .dark-theme .display {
-        background-color: #2d194d;
-        color: #f77f7f;
+            background-color: #2d194d;
+            color: #f77f7f;
         }
         .dark-theme .button {
-        background-color: #21053a;
-        color: #f77f7f;
+            background-color: #21053a;
+            color: #f77f7f;
         }
         .dark-theme .button:hover {
-        background-color: #402c68;
+            background-color: #402c68;
         } 
-        .dark-theme .operator{
+        .dark-theme .operator {
             background-color: #54386d;
         }
         .inf {
@@ -95,13 +95,11 @@
             box-shadow: 0 2px 5px rgba(255, 251, 0, 0.2);
             z-index: 100; 
         }
-
         .inf-content {
             text-align: center;
-            font-family:cursive;
+            font-family: cursive;
             color: #000000;
         }
-
         .close-inf {
             position: absolute;
             top: 10px;
@@ -134,6 +132,13 @@
             <button class="button" onclick="appendNumber('.')">.</button>
             <button class="button" onclick="calculate()">=</button>
             <button class="button operator" onclick="appendOperator('/')">/</button>
+            <button class="button" onclick="changeSign()">+/-</button>
+            <button class="button" onclick="setPercentageMode()">%</button>
+            <button class="button" onclick="backspace()">⌫</button>
+            <button class="button" onclick="addZeros()">000</button>
+            <button class="button operator" onclick="calculateSquareRoot()">√ </button>
+            <button class="button operator" onclick="calculateSquare()">x²</button>
+            <button class="button operator" onclick="calculateFactorial()">x!</button>
             <button class="button" onclick="clearDisplay()">C</button>
             <button class="button" onclick="window.location.href='https://github.com/4GTTN'">git</button>
             <button class="button" id="toggleTheme">theme</button>
@@ -148,47 +153,110 @@
           <p>Группа ИС-22</p>
           <p>Кафедра ИСиТ</p>
         </div>
-      </div>
+    </div>
     <script>
         let display = document.getElementById('display');
         let display_culc = document.getElementById('display_culc'); 
         const toggleTheme = document.getElementById('toggleTheme');
         let isDarkTheme = false;
         let currentInput = '';
+        let percentageBase = null; // Новая переменная для хранения базового значения для процентов
+
         function appendNumber(num) {
             currentInput += num;
             display.textContent = currentInput;
-            try{
-                currentInput = eval(currentInput);
-                display_culc.textContent = currentInput;
-            } catch(error){
-                display_culc.textContent = 'Error';
-            }
         }
+
         function appendOperator(operator) {
             currentInput += operator;
             display.textContent = currentInput;
+            percentageBase = null; // Сбрасываем базу для процентов при вводе оператора
         }
+
         function calculate() {
-            try {
-                currentInput = eval(currentInput);
-                display.textContent += " =  "
-                display.textContent += currentInput ;
-            } catch (error) {
-                display.textContent = 'Error';
+            if (percentageBase !== null) {
+                let percentValue = parseFloat(currentInput);
+                if (!isNaN(percentValue)) {
+                    // Вычисляем процент от сохраненного базового значения
+                    currentInput = (percentageBase * percentValue / 100).toString();
+                }
+            } else {
+                try {
+                    currentInput = eval(currentInput).toString();
+                } catch (error) {
+                    display.textContent = 'Ошибка';
+                    return;
+                }
+            }
+            display.textContent = currentInput; // Отображаем результат
+            display_culc.textContent = currentInput; // Сохраняем результат
+        }
+
+        function setPercentageMode() {
+            percentageBase = parseFloat(currentInput); // Сохраняем текущее значение как базу
+            currentInput = ''; // Очищаем текущий ввод для следующего числа
+        }
+
+        function changeSign() {
+            if (currentInput.startsWith('-')) {
+                currentInput = currentInput.slice(1);
+            } else {
+                currentInput = '-' + currentInput;
+            }
+            display.textContent = currentInput;
+        }
+
+        function backspace() {
+            currentInput = currentInput.slice(0, -1);
+            display.textContent = currentInput;
+        }
+
+        function calculateSquareRoot() {
+            currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+            display.textContent = currentInput;
+        }
+
+        function calculateSquare() {
+            currentInput = Math.pow(parseFloat(currentInput), 2).toString();
+            display.textContent = currentInput;
+        }
+
+        function calculateFactorial() {
+            let num = parseInt(currentInput);
+            if (num < 0) {
+                display.textContent = 'Ошибка';
+                return;
+            }
+            currentInput = factorial(num).toString();
+            display.textContent = currentInput;
+
+            function factorial(n) {
+                if (n === 0) return 1;
+                return n * factorial(n - 1);
             }
         }
+
+        function addZeros() {
+            currentInput += '000';
+            display.textContent = currentInput;
+        }
+
         function clearDisplay() {
             currentInput = '';
+            percentageBase = null; // Сбрасываем базу для процентов
             display.textContent = '';
+            display_culc.textContent = '';
         }
+
         toggleTheme.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
             isDarkTheme = !isDarkTheme;
         });
+
         function openinf() {
             document.getElementById('inf').style.display = 'block';
         }
+
         function closeinf() {
             document.getElementById('inf').style.display = 'none';
         }
